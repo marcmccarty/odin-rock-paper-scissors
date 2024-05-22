@@ -78,6 +78,7 @@ function playGame() {
     for (i = 1; i <= 5; i++) {
         console.log("\nRound " + i);
         playRound();
+        round++;
     }
 
     console.log("\nFinal Scores");
@@ -86,7 +87,9 @@ function playGame() {
 
     if (computerScore > humanScore) {
         console.log("\nCPU wins!");
-    } else {
+    } else if (humanScore > computerScore) {
         console.log("\nYou win!");
+    } else {
+        console.log("\nIt's a draw!")
     }
 }
