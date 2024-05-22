@@ -1,6 +1,3 @@
-let computerScore = 0;
-let humanScore = 0;
-
 function getComputerChoice() {
     let rng = Math.random();
     if (rng < (1/3)) {
@@ -30,46 +27,66 @@ function getHumanChoice() {
     }
 }
 
-function playRound(computerChoice = getComputerChoice(), humanChoice = getHumanChoice()) {
-    // CPU: "Rock!"
-    if (computerChoice == "rock") {
-        console.log("CPU: \"Rock!\"");
-        if (humanChoice == "paper") {
-            humanScore += 1;
-            console.log("You win!");
-        } else if (humanChoice == "scissors") {
-            computerScore += 1;
-            console.log("CPU wins!");
-        } else {
-            console.log("It's a draw!");
+function playGame() {
+    let computerScore = 0;
+    let humanScore = 0;
+    
+    function playRound(computerChoice = getComputerChoice(), humanChoice = getHumanChoice()) {
+        // CPU: "Rock!"
+        if (computerChoice == "rock") {
+            console.log("CPU: \"Rock!\"");
+            if (humanChoice == "paper") {
+                humanScore += 1;
+                console.log("You win!");
+            } else if (humanChoice == "scissors") {
+                computerScore += 1;
+                console.log("CPU wins!");
+            } else {
+                console.log("It's a draw!");
+            }
+        }
+    
+        // CPU: "Paper!"
+        if (computerChoice == "paper") {
+            console.log("CPU: \"Paper!\"");
+            if (humanChoice == "scissors") {
+                humanScore += 1;
+                console.log("You win!");
+            } else if (humanChoice == "rock") {
+                computerScore += 1;
+                console.log("CPU wins!");
+            } else {
+                console.log("It's a draw!");
+            }
+        }
+    
+        // CPU: "Scissors!"
+        if (computerChoice == "scissors") {
+            console.log("CPU: \"Scissors!\"");
+            if (humanChoice == "rock") {
+                humanScore += 1;
+                console.log("You win!");
+            } else if (humanChoice == "paper") {
+                computerScore += 1;
+                console.log("CPU wins!");
+            } else {
+                console.log("It's a draw!");
+            }
         }
     }
 
-    // CPU: "Paper!"
-    if (computerChoice == "paper") {
-        console.log("CPU: \"Paper!\"");
-        if (humanChoice == "scissors") {
-            humanScore += 1;
-            console.log("You win!");
-        } else if (humanChoice == "rock") {
-            computerScore += 1;
-            console.log("CPU wins!");
-        } else {
-            console.log("It's a draw!");
-        }
+    for (i = 1; i <= 5; i++) {
+        console.log("\nRound " + i);
+        playRound();
     }
 
-    // CPU: "Scissors!"
-    if (computerChoice == "scissors") {
-        console.log("CPU: \"Scissors!\"");
-        if (humanChoice == "rock") {
-            humanScore += 1;
-            console.log("You win!");
-        } else if (humanChoice == "paper") {
-            computerScore += 1;
-            console.log("CPU wins!");
-        } else {
-            console.log("It's a draw!");
-        }
+    console.log("\nFinal Scores");
+    console.log("CPU: " + computerScore);
+    console.log("You: " + humanScore);
+
+    if (computerScore > humanScore) {
+        console.log("\nCPU wins!");
+    } else {
+        console.log("\nYou win!");
     }
 }
