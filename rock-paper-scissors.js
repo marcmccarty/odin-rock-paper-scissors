@@ -93,36 +93,24 @@ function playRound(humanChoice = rockPaperScissors, computerChoice = getComputer
     if (computerChoice == ROCK) {
         if (humanChoice == PAPER) {
             humanScore += 1;
-            console.log("You win!");
         } else if (humanChoice == SCISSORS) {
             computerScore += 1;
-            console.log("CPU wins!");
-        } else {
-            console.log("It's a draw!");
         }
     }
 
     if (computerChoice == PAPER) {
         if (humanChoice == SCISSORS) {
             humanScore += 1;
-            console.log("You win!");
         } else if (humanChoice == ROCK) {
             computerScore += 1;
-            console.log("CPU wins!");
-        } else {
-            console.log("It's a draw!");
         }
     }
 
     if (computerChoice == SCISSORS) {
         if (humanChoice == ROCK) {
             humanScore += 1;
-            console.log("You win!");
         } else if (humanChoice == PAPER) {
             computerScore += 1;
-            console.log("CPU wins!");
-        } else {
-            console.log("It's a draw!");
         }
     }
 
