@@ -1,22 +1,54 @@
+let computerScore = 0;
+let humanScore = 0;
+let winnerDeclared = false;
+
+const gameContainer = document.createElement("div");
+document.body.appendChild(gameContainer);
+
 const rockButton = document.createElement("button");
 const paperButton = document.createElement("button");
 const scissorsButton = document.createElement("button");
 
 rockButton.id = "rock";
+rockButton.textContent = "Rock";
+
 paperButton.id = "paper";
+paperButton.textContent = "Paper";
+
 scissorsButton.id = "scissors";
+scissorsButton.textContent = "Scissors";
 
 rockButton.addEventListener("click", () => {
-    getHumanChoice(rockButton.id);
+    playRound(rockButton.id);
 })
 
 paperButton.addEventListener("click", () => {
-    getHumanChoice(paperButton.id);
+    playRound(paperButton.id);
 })
 
 scissorsButton.addEventListener("click", () => {
-    getHumanChoice(scissorsButton.id);
+    playRound(scissorsButton.id);
 })
+
+const results = document.createElement("div");
+const computerScoreHeading = document.createElement("h2");
+const humanScoreHeading = document.createElement("h2");
+const winnerHeading = document.createElement("h1");
+const replayHeading = document.createElement("h2");
+
+computerScoreHeading.textContent = "CPU: " + computerScore;
+humanScoreHeading.textContent = "You: " + humanScore;
+
+results.appendChild(computerScoreHeading);
+results.appendChild(humanScoreHeading);
+results.appendChild(winnerHeading);
+results.appendChild(replayHeading);
+
+gameContainer.appendChild(rockButton);
+gameContainer.appendChild(paperButton);
+gameContainer.appendChild(scissorsButton);
+gameContainer.appendChild(results);
+
 
 function getComputerChoice() {
     let rng = Math.random();
@@ -47,7 +79,7 @@ function calculateFinalScores(computerScore = 0, humanScore = 0) {
     }
 }
 
-function playRound(computerChoice = getComputerChoice(), humanChoice = getHumanChoice()) {
+function playRound(humanChoice = getHumanChoice(rockPaperScissors), computerChoice = getComputerChoice()) {
     // CPU: "Rock!"
     if (computerChoice == "rock") {
         console.log("CPU: \"Rock!\"");
@@ -89,11 +121,19 @@ function playRound(computerChoice = getComputerChoice(), humanChoice = getHumanC
             console.log("It's a draw!");
         }
     }
-}
 
-function playGame() {
-    let computerScore = 0;
-    let humanScore = 0;
+    computerScoreHeading.textContent = "CPU: " + computerScore;
+    humanScoreHeading.textContent = "You: " + humanScore;
 
-    calculateFinalScores(computerScore, humanScore);
+    if (computerScore == 5 && !winnerDeclared) {
+        winnerHeading.textContent = "CPU Wins!";
+        winnerDeclared = true;
+    }
+    if (humanScore == 5 && !winnerDeclared) {
+        winnerHeading.textContent = "You Win!";
+        winnerDeclared = true;
+    }
+    if (winnerDeclared) {
+        replayHeading.textContent = "To play again, refresh the page!";
+    }
 }
