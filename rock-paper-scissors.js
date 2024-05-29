@@ -1,92 +1,100 @@
 let computerScore = 0;
 let humanScore = 0;
+let round = 0;
 let winnerDeclared = false;
+const ROCK = "Rock";
+const PAPER = "Paper";
+const SCISSORS = "Scissors";
 
 const gameContainer = document.createElement("div");
 document.body.appendChild(gameContainer);
 
+const buttons = document.createElement("div");
 const rockButton = document.createElement("button");
 const paperButton = document.createElement("button");
 const scissorsButton = document.createElement("button");
 
-rockButton.id = "rock";
-rockButton.textContent = "Rock";
+const choices = document.createElement("div");
+const choicesHeading = document.createElement("h1");
+const computerChoiceHeading = document.createElement("h2");
+const humanChoiceHeading = document.createElement("h2");
 
-paperButton.id = "paper";
-paperButton.textContent = "Paper";
-
-scissorsButton.id = "scissors";
-scissorsButton.textContent = "Scissors";
-
-rockButton.addEventListener("click", () => {
-    playRound(rockButton.id);
-})
-
-paperButton.addEventListener("click", () => {
-    playRound(paperButton.id);
-})
-
-scissorsButton.addEventListener("click", () => {
-    playRound(scissorsButton.id);
-})
-
-const results = document.createElement("div");
+const scores = document.createElement("div");
+const scoresHeading = document.createElement("h1");
 const computerScoreHeading = document.createElement("h2");
 const humanScoreHeading = document.createElement("h2");
+
+const results = document.createElement("div");
 const winnerHeading = document.createElement("h1");
 const replayHeading = document.createElement("h2");
 
+rockButton.textContent = ROCK;
+paperButton.textContent = PAPER;
+scissorsButton.textContent = SCISSORS;
+
+rockButton.addEventListener("click", () => {
+    if (!winnerDeclared) {
+        playRound(ROCK);
+    }
+})
+
+paperButton.addEventListener("click", () => {
+    if (!winnerDeclared) {
+        playRound(PAPER);
+    }
+})
+
+scissorsButton.addEventListener("click", () => {
+    if (!winnerDeclared) {
+        playRound(SCISSORS);
+    }
+})
+
+choicesHeading.textContent = "Choices";
+computerChoiceHeading.textContent = "CPU: ";
+humanChoiceHeading.textContent = "You: ";
+
+scoresHeading.textContent = "Scores";
 computerScoreHeading.textContent = "CPU: " + computerScore;
 humanScoreHeading.textContent = "You: " + humanScore;
 
-results.appendChild(computerScoreHeading);
-results.appendChild(humanScoreHeading);
+buttons.appendChild(rockButton);
+buttons.appendChild(paperButton);
+buttons.appendChild(scissorsButton);
+
+choices.appendChild(choicesHeading);
+choices.appendChild(computerChoiceHeading);
+choices.appendChild(humanChoiceHeading);
+
+scores.appendChild(scoresHeading);
+scores.appendChild(computerScoreHeading);
+scores.appendChild(humanScoreHeading);
+
 results.appendChild(winnerHeading);
 results.appendChild(replayHeading);
 
-gameContainer.appendChild(rockButton);
-gameContainer.appendChild(paperButton);
-gameContainer.appendChild(scissorsButton);
+gameContainer.appendChild(buttons);
+gameContainer.appendChild(choices);
+gameContainer.appendChild(scores);
 gameContainer.appendChild(results);
-
 
 function getComputerChoice() {
     let rng = Math.random();
     if (rng < (1/3)) {
-        return "rock";
+        return ROCK;
     } else if (rng < 2/3) {
-        return "paper";
+        return PAPER;
     } else {
-        return "scissors";
+        return SCISSORS;
     }
 }
 
-function getHumanChoice(rockPaperScissors) {
-    return rockPaperScissors;
-}
-
-function calculateFinalScores(computerScore = 0, humanScore = 0) {
-    console.log("\nFinal Scores");
-    console.log("CPU: " + computerScore);
-    console.log("You: " + humanScore);
-
-    if (computerScore > humanScore) {
-        console.log("\nCPU wins!");
-    } else if (humanScore > computerScore) {
-        console.log("\nYou win!");
-    } else {
-        console.log("\nIt's a draw!")
-    }
-}
-
-function playRound(humanChoice = getHumanChoice(rockPaperScissors), computerChoice = getComputerChoice()) {
-    // CPU: "Rock!"
-    if (computerChoice == "rock") {
-        console.log("CPU: \"Rock!\"");
-        if (humanChoice == "paper") {
+function playRound(humanChoice = rockPaperScissors, computerChoice = getComputerChoice()) {
+    if (computerChoice == ROCK) {
+        if (humanChoice == PAPER) {
             humanScore += 1;
             console.log("You win!");
-        } else if (humanChoice == "scissors") {
+        } else if (humanChoice == SCISSORS) {
             computerScore += 1;
             console.log("CPU wins!");
         } else {
@@ -94,13 +102,11 @@ function playRound(humanChoice = getHumanChoice(rockPaperScissors), computerChoi
         }
     }
 
-    // CPU: "Paper!"
-    if (computerChoice == "paper") {
-        console.log("CPU: \"Paper!\"");
-        if (humanChoice == "scissors") {
+    if (computerChoice == PAPER) {
+        if (humanChoice == SCISSORS) {
             humanScore += 1;
             console.log("You win!");
-        } else if (humanChoice == "rock") {
+        } else if (humanChoice == ROCK) {
             computerScore += 1;
             console.log("CPU wins!");
         } else {
@@ -108,13 +114,11 @@ function playRound(humanChoice = getHumanChoice(rockPaperScissors), computerChoi
         }
     }
 
-    // CPU: "Scissors!"
-    if (computerChoice == "scissors") {
-        console.log("CPU: \"Scissors!\"");
-        if (humanChoice == "rock") {
+    if (computerChoice == SCISSORS) {
+        if (humanChoice == ROCK) {
             humanScore += 1;
             console.log("You win!");
-        } else if (humanChoice == "paper") {
+        } else if (humanChoice == PAPER) {
             computerScore += 1;
             console.log("CPU wins!");
         } else {
@@ -122,6 +126,8 @@ function playRound(humanChoice = getHumanChoice(rockPaperScissors), computerChoi
         }
     }
 
+    computerChoiceHeading.textContent = "CPU: " + computerChoice;
+    humanChoiceHeading.textContent = "You: " + humanChoice;
     computerScoreHeading.textContent = "CPU: " + computerScore;
     humanScoreHeading.textContent = "You: " + humanScore;
 
